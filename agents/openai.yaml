@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workflow-First App UI"
+  short_description: "Build reusable, workflow-centered application interfaces"
+  default_prompt: "Use $workflow-first-app-ui to improve this application UI while preserving its current design system and business workflows."
