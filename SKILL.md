@@ -51,15 +51,15 @@ Read [references/lessons-learned.md](references/lessons-learned.md) when plannin
 - Avoid unnecessary dependencies. Inspect imported code and its transitive packages before accepting it.
 - Replace demo data, claims, logos, testimonials, and metrics. Do not present placeholder content as real.
 
-Use the Hallmark skill when available for meaningful design work or design audits. Use Playwright or the configured browser tool for rendered inspection when available.
+Use Hallmark for meaningful visual direction, design audits, accessibility, and responsive-quality review when its scope applies. Use the configured Playwright MCP server for interactive browser inspection, responsive checks, console review, and workflow verification. Keep type, unit, business-rule, schema-contract, and build checks responsible for repeatable code and domain correctness. See [BROWSER_TESTING.md](BROWSER_TESTING.md) for the shared browser standard.
 
 ## Verify the result
 
 Run the checks that protect the changed behavior: type checks, unit tests, business-rule tests, schema or contract tests, and build checks as applicable. Browser checks complement these tests; they do not replace them.
 
-Exercise at least one real primary workflow in the rendered application. Check a representative desktop viewport and a narrow mobile viewport. Inspect keyboard behavior, console errors, loading, empty and error states, overflow, and preservation of important actions. Use fictional or isolated test data.
+Exercise at least one real primary workflow in the rendered application. Check representative desktop and mobile viewports, plus tablet when the product supports it or the layout risk warrants it. Inspect keyboard behavior, console errors, failed requests, loading, empty and error states, overflow, and preservation of important actions. Use fictional or isolated test data.
 
-For substantial changes, read [references/verification.md](references/verification.md).
+For substantial changes, read [references/verification.md](references/verification.md) and [BROWSER_TESTING.md](BROWSER_TESTING.md).
 
 Report:
 
