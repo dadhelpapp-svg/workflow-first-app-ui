@@ -11,6 +11,8 @@ Improve the user's real workflow without replacing a design system they already 
 
 Before changing code, inspect the project instructions, dirty worktree, framework and versions, styling system, shared components, design tokens, routes, primary workflows, business-rule tests, and existing acceptance evidence. Treat project-level rules and established components as authoritative.
 
+When starting from an originating-chat handoff or preparing a new project, use [CHAT_TO_CODEX_HANDOFF.md](CHAT_TO_CODEX_HANDOFF.md) and [PROJECT_SETUP_CHECKLIST.md](PROJECT_SETUP_CHECKLIST.md) only when that setup context is relevant. Do not repeat completed, evidence-backed preparation merely to follow a generic sequence.
+
 Identify whether the task is:
 
 - extending an existing interface;

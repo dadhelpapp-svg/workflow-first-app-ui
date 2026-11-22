@@ -4,6 +4,8 @@ The originating chat should complete as much safe, useful preparation as its ava
 
 This is a minimum standard, not a reason to delay urgent fixes or pretend unverified setup is complete.
 
+Use the [minimum project setup checklist](PROJECT_SETUP_CHECKLIST.md) during preparation and the [Codex handoff template](templates/CODEX_HANDOFF.md) for the final packet. See [examples/new-react-project-handoff.md](examples/new-react-project-handoff.md) and [examples/existing-ui-change-handoff.md](examples/existing-ui-change-handoff.md) for fictional completed examples.
+
 ## Before the handoff
 
 The originating chat should:
