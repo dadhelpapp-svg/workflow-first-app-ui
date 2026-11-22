@@ -14,7 +14,8 @@ It helps an agent:
 ## Included standards
 
 - [`SKILL.md`](SKILL.md) contains the workflow-first implementation and audit process.
-- [`AGENTS.md`](AGENTS.md) supplies the portable global software-design defaults.
+- [`AGENTS.md`](AGENTS.md) supplies the portable global software-design and handoff defaults.
+- [`CHAT_TO_CODEX_HANDOFF.md`](CHAT_TO_CODEX_HANDOFF.md) requires the originating chat to complete safe discovery and minimum project setup before an execution-ready Codex handoff.
 - [`BROWSER_TESTING.md`](BROWSER_TESTING.md) defines the Playwright MCP setup, browser workflow, tool boundaries, and reporting standard.
 - [`references/`](references/) contains component-source, verification, and lessons-learned guidance.
 
