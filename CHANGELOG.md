@@ -2,6 +2,17 @@
 
 All notable changes to this repository are documented here.
 
+## [1.3.0] - 2026-11-27
+
+### Added
+
+- `SPEC_DRIVEN_DEVELOPMENT.md`, an optional standard for using GitHub Spec Kit in application projects with both Claude Code and Codex, mapping its steps onto the workflow-first skill, verification, and handoff standards.
+- `templates/SPEC_KIT_CONSTITUTION.md`, a `/speckit-constitution` seed derived from these standards.
+
+### Changed
+
+- `AGENTS.md`, `SKILL.md`, the handoff standard and template, the setup checklist, and the README point to the Spec Kit standard where it applies.
+
 ## [1.2.0] - 2026-11-27
 
 ### Added

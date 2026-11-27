@@ -8,6 +8,7 @@ Use this checklist before handing a new software project to Claude Code. Mark on
 - [ ] The intended repository, branch, or worktree is identified.
 - [ ] Project-level instructions and the chosen stack are recorded.
 - [ ] Material assumptions and decisions requiring user input are explicit.
+- [ ] If the project uses Spec Kit, `.specify/` is initialized for the intended agents, the constitution is ratified, and the current feature's spec is committed.
 
 ## Runnable baseline
 

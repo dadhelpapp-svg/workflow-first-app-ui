@@ -22,6 +22,7 @@ REQUIRED_FILES = (
     "README.md",
     "SECURITY.md",
     "SKILL.md",
+    "SPEC_DRIVEN_DEVELOPMENT.md",
     "VERSION",
     "agents/openai.yaml",
     "examples/existing-ui-change-handoff.md",
@@ -30,6 +31,7 @@ REQUIRED_FILES = (
     "references/lessons-learned.md",
     "references/verification.md",
     "templates/CLAUDE_HANDOFF.md",
+    "templates/SPEC_KIT_CONSTITUTION.md",
 )
 
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")

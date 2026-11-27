@@ -26,7 +26,8 @@ The originating chat should:
    - run the baseline checks and confirm the application can start or build.
 5. For an existing project, preserve its architecture and prepare the exact files, routes, components, fixtures, or issue context Claude Code will need.
 6. Gather reusable source material, screenshots, designs, API contracts, sample data, and license information when they are relevant and permitted.
-7. Leave the workspace in a coherent state. Do not hand off a half-applied dependency change or an unexplained failing baseline.
+7. If the project uses GitHub Spec Kit and the chat can run it, complete the constitution and specification (and the plan, once the stack is decided), commit them, and reference the `specs/<feature>/` files in the handoff. See [SPEC_DRIVEN_DEVELOPMENT.md](SPEC_DRIVEN_DEVELOPMENT.md).
+8. Leave the workspace in a coherent state. Do not hand off a half-applied dependency change or an unexplained failing baseline.
 
 Do not fabricate credentials, copy secrets into prompts or repositories, mutate production data, publish or deploy without authorization, or make a consequential product decision that requires the user.
 

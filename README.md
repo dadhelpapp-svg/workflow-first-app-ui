@@ -19,6 +19,7 @@ It helps an agent:
 - [`CHAT_TO_CLAUDE_HANDOFF.md`](CHAT_TO_CLAUDE_HANDOFF.md) requires the originating chat to complete safe discovery and minimum project setup before an execution-ready Claude Code handoff.
 - [`templates/CLAUDE_HANDOFF.md`](templates/CLAUDE_HANDOFF.md) is the reusable handoff form, supported by two fictional [`examples/`](examples/).
 - [`PROJECT_SETUP_CHECKLIST.md`](PROJECT_SETUP_CHECKLIST.md) defines the minimum runnable baseline expected before handoff.
+- [`SPEC_DRIVEN_DEVELOPMENT.md`](SPEC_DRIVEN_DEVELOPMENT.md) explains when and how to use [GitHub Spec Kit](https://github.com/github/spec-kit) in application projects with Claude Code and Codex, and [`templates/SPEC_KIT_CONSTITUTION.md`](templates/SPEC_KIT_CONSTITUTION.md) seeds a Spec Kit constitution from these standards.
 - [`BROWSER_TESTING.md`](BROWSER_TESTING.md) defines the Playwright MCP setup, browser workflow, tool boundaries, and reporting standard.
 - [`SECURITY.md`](SECURITY.md) defines credential, data, browser-profile, and authorization boundaries.
 - [`references/`](references/) contains component-source, verification, and lessons-learned guidance.
@@ -71,6 +72,18 @@ The helpers install or update the skill. They default to Claude Code; pass a tar
 ```
 
 `CLAUDE_CONFIG_DIR` and `CODEX_HOME` are honored when set.
+
+### Spec Kit (optional, per application project)
+
+Spec Kit is installed into the application you are building, not into this repository. Install the CLI once, then initialize a project for both agents:
+
+```sh
+uv tool install specify-cli==1.4.5
+specify init --here --force --integration claude   # from the app repo root, on a clean branch
+specify integration install codex
+```
+
+See [`SPEC_DRIVEN_DEVELOPMENT.md`](SPEC_DRIVEN_DEVELOPMENT.md) for when to use it and how its steps map onto this skill.
 
 Validate a checkout with:
 

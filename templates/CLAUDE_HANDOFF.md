@@ -18,6 +18,7 @@ Copy this template into the target project or the Claude Code task. Replace ever
 - Branch or worktree: [name or path]
 - Starting commit: [SHA, if applicable]
 - Project instructions: [CLAUDE.md, AGENTS.md, and other relevant files]
+- Spec Kit artifacts: [`specs/<feature>/` files and the next Spec Kit step, or "not used"]
 
 ## Decisions already made
 
