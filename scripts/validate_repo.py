@@ -14,7 +14,8 @@ REQUIRED_FILES = (
     "AGENTS.md",
     "BROWSER_TESTING.md",
     "CHANGELOG.md",
-    "CHAT_TO_CODEX_HANDOFF.md",
+    "CLAUDE.md",
+    "CHAT_TO_CLAUDE_HANDOFF.md",
     "CONTRIBUTING.md",
     "LICENSE",
     "PROJECT_SETUP_CHECKLIST.md",
@@ -28,7 +29,7 @@ REQUIRED_FILES = (
     "references/component-sources.md",
     "references/lessons-learned.md",
     "references/verification.md",
-    "templates/CODEX_HANDOFF.md",
+    "templates/CLAUDE_HANDOFF.md",
 )
 
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")

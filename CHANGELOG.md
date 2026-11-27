@@ -2,6 +2,21 @@
 
 All notable changes to this repository are documented here.
 
+## [1.2.0] - 2026-11-27
+
+### Added
+
+- `CLAUDE.md`, which imports `AGENTS.md` so Claude Code and Codex share one set of defaults.
+- Claude Code install path (`~/.claude/skills/workflow-first-app-ui`) and `/workflow-first-app-ui` invocation.
+- `--codex`/`--all` (shell) and `-Target Codex|All` (PowerShell) install options.
+- Claude Code Playwright MCP setup (`claude mcp add`) and a project `.mcp.json` example.
+
+### Changed
+
+- The install helpers now default to Claude Code. Codex users should pass `--codex` or `-Target Codex`.
+- Renamed `CHAT_TO_CODEX_HANDOFF.md` to `CHAT_TO_CLAUDE_HANDOFF.md` and `templates/CODEX_HANDOFF.md` to `templates/CLAUDE_HANDOFF.md`, and retargeted the handoff wording to Claude Code.
+- Codex setup remains documented alongside Claude Code; `agents/openai.yaml` is unchanged.
+
 ## [1.1.0] - 2026-11-22
 
 ### Added

@@ -1,21 +1,34 @@
 # Browser testing with Playwright MCP
 
-Use the official Microsoft Playwright MCP server for interactive inspection of running web applications. It exposes browser navigation and controls to Codex through structured accessibility snapshots. It is not a replacement for Playwright Test, application tests, Hallmark, or a full accessibility audit.
+Use the official Microsoft Playwright MCP server for interactive inspection of running web applications. It exposes browser navigation and controls to Claude Code through structured accessibility snapshots. It is not a replacement for Playwright Test, application tests, Hallmark, or a full accessibility audit.
 
-## Install for Codex
+## Install for Claude Code
 
-Requirements: Node.js 18 or newer, Codex CLI, and either an installed Chromium-family browser or permission for Playwright to download one on first use.
+Requirements: Node.js 18 or newer, Claude Code, and either an installed Chromium-family browser or permission for Playwright to download one on first use.
 
-Standard cross-platform configuration:
+Standard cross-platform configuration, available in every project for your user account:
 
 ```sh
-codex mcp add playwright -- npx -y @playwright/mcp@latest --isolated --headless --console-level warning
+claude mcp add --scope user playwright -- npx -y @playwright/mcp@latest --isolated --headless --console-level warning
 ```
 
-On Windows, use `npx.cmd` if PowerShell blocks `npx.ps1`:
+On native Windows (not WSL), wrap `npx` with `cmd /c` so the server can start:
 
 ```powershell
-codex mcp add playwright -- npx.cmd -y @playwright/mcp@latest --isolated --headless --browser msedge --console-level warning
+claude mcp add --scope user playwright -- cmd /c npx -y @playwright/mcp@latest --isolated --headless --browser msedge --console-level warning
+```
+
+To share the server with everyone working in one application repository instead, commit a project-scoped `.mcp.json` at that repository's root. Claude Code asks each user to approve project servers before first use.
+
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest", "--isolated", "--headless", "--console-level", "warning"]
+    }
+  }
+}
 ```
 
 This uses the official package on demand and avoids an unnecessary global npm installation. `--isolated` discards cookies and local storage when the browser closes. Remove it only when a task explicitly requires a persistent test profile and the saved state is safe. Do not reuse production login profiles for automated testing.
@@ -23,16 +36,20 @@ This uses the official package on demand and avoids an unnecessary global npm in
 Verify configuration:
 
 ```sh
-codex mcp get playwright
-codex mcp list
+claude mcp get playwright
+claude mcp list
 npx -y @playwright/mcp@latest --version
 ```
 
-Start a new Codex session after adding or changing an MCP server. An already-running session may not refresh its tool inventory.
+Inside a session, run `/mcp` to confirm that `playwright` is connected. Start a new Claude Code session after adding or changing an MCP server. An already-running session may not refresh its tool inventory.
 
-## Invoke from Codex
+### Codex
 
-Ask Codex to use Playwright MCP explicitly when browser proof matters. Example:
+Codex users can register the same server with `codex mcp add playwright -- npx -y @playwright/mcp@latest --isolated --headless --console-level warning` (use `npx.cmd` on Windows if PowerShell blocks `npx.ps1`), then verify with `codex mcp list`.
+
+## Invoke from Claude Code
+
+Ask Claude Code to use Playwright MCP explicitly when browser proof matters. Example:
 
 > Use Playwright MCP to open the local app, verify the appointment workflow at desktop and mobile sizes, report console errors, and do not change production data.
 
@@ -71,9 +88,9 @@ Playwright MCP is not a security boundary. Keep client permissions, environment 
 
 ## Troubleshooting
 
-- Server missing: run `codex mcp list`, confirm `playwright` is enabled, and start a new Codex session.
+- Server missing: run `claude mcp list` (or `/mcp` in a session), confirm `playwright` is connected, approve a project-scoped server if prompted, and start a new Claude Code session.
 - Startup prompt or hang: include `-y` before `@playwright/mcp@latest`.
-- `npx` blocked on Windows: configure `npx.cmd`.
+- Server fails to start on native Windows: use `cmd /c npx` as shown above (Codex: `npx.cmd`).
 - Browser not found: remove the explicit browser channel to allow the package's normal browser download, install an approved browser, or set a supported `--browser`/`--executable-path` value.
 - Browser profile locked: use `--isolated` or a different `--user-data-dir`.
 - App unreachable: start the documented development server, verify the exact loopback URL with an HTTP request, and avoid mixing `localhost` and `127.0.0.1` when cookies or origin checks matter.
@@ -83,5 +100,7 @@ Playwright MCP is not a security boundary. Keep client permissions, environment 
 To remove the integration:
 
 ```sh
-codex mcp remove playwright
+claude mcp remove --scope user playwright
 ```
+
+For a project server, delete the `playwright` entry from `.mcp.json`. For Codex, run `codex mcp remove playwright`.

@@ -15,7 +15,7 @@ Do not open a public issue containing an active secret, private customer data, o
 - Review copied dependencies and source for licensing, install scripts, transitive packages, and suspicious network behavior.
 - Keep generated files and temporary artifacts out of commits unless they are intentional deliverables.
 
-## Before handing work to Codex
+## Before handing work to Claude Code
 
 - State which environments and data are allowed.
 - Identify forbidden or approval-gated actions.

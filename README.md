@@ -1,6 +1,6 @@
-# Workflow-First App UI and Codex standards
+# Workflow-First App UI skill and standards
 
-A reusable Codex skill for extending or auditing application interfaces without discarding an established UI, component system, or business workflow. The repository also packages supporting project-handoff, browser-verification, security, and contribution standards used around the skill.
+A reusable Claude Code skill (also compatible with Codex) for extending or auditing application interfaces without discarding an established UI, component system, or business workflow. The repository also packages supporting project-handoff, browser-verification, security, and contribution standards used around the skill.
 
 It helps an agent:
 
@@ -15,8 +15,9 @@ It helps an agent:
 
 - [`SKILL.md`](SKILL.md) contains the workflow-first implementation and audit process.
 - [`AGENTS.md`](AGENTS.md) supplies the portable global software-design and handoff defaults.
-- [`CHAT_TO_CODEX_HANDOFF.md`](CHAT_TO_CODEX_HANDOFF.md) requires the originating chat to complete safe discovery and minimum project setup before an execution-ready Codex handoff.
-- [`templates/CODEX_HANDOFF.md`](templates/CODEX_HANDOFF.md) is the reusable handoff form, supported by two fictional [`examples/`](examples/).
+- [`CLAUDE.md`](CLAUDE.md) imports `AGENTS.md` so Claude Code and Codex share the same defaults.
+- [`CHAT_TO_CLAUDE_HANDOFF.md`](CHAT_TO_CLAUDE_HANDOFF.md) requires the originating chat to complete safe discovery and minimum project setup before an execution-ready Claude Code handoff.
+- [`templates/CLAUDE_HANDOFF.md`](templates/CLAUDE_HANDOFF.md) is the reusable handoff form, supported by two fictional [`examples/`](examples/).
 - [`PROJECT_SETUP_CHECKLIST.md`](PROJECT_SETUP_CHECKLIST.md) defines the minimum runnable baseline expected before handoff.
 - [`BROWSER_TESTING.md`](BROWSER_TESTING.md) defines the Playwright MCP setup, browser workflow, tool boundaries, and reporting standard.
 - [`SECURITY.md`](SECURITY.md) defines credential, data, browser-profile, and authorization boundaries.
@@ -24,7 +25,7 @@ It helps an agent:
 
 ## Repository scope
 
-The installable skill remains focused on workflow-first React interface work. The root standards and templates form a small companion bundle for preparing projects, handing them to Codex, and proving the resulting workflow. They do not replace project-level instructions, application tests, security review, or product decisions that require the user.
+The installable skill remains focused on workflow-first React interface work. The root standards and templates form a small companion bundle for preparing projects, handing them to Claude Code, and proving the resulting workflow. They do not replace project-level instructions, application tests, security review, or product decisions that require the user.
 
 The current release is recorded in [`VERSION`](VERSION), with release history in [`CHANGELOG.md`](CHANGELOG.md). See [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing source guidance or packaging.
 
@@ -32,29 +33,44 @@ The global defaults are intentionally subordinate to project-level instructions 
 
 ## Install
 
-Clone this repository into the Codex skills directory:
+### Claude Code
+
+Clone this repository into your personal Claude Code skills directory:
 
 ```bash
-git clone https://github.com/dadhelpapp-svg/workflow-first-app-ui.git ~/.codex/skills/workflow-first-app-ui
+git clone https://github.com/dadhelpapp-svg/workflow-first-app-ui.git ~/.claude/skills/workflow-first-app-ui
 ```
 
 On Windows PowerShell:
 
 ```powershell
-git clone https://github.com/dadhelpapp-svg/workflow-first-app-ui.git "$env:USERPROFILE\.codex\skills\workflow-first-app-ui"
+git clone https://github.com/dadhelpapp-svg/workflow-first-app-ui.git "$env:USERPROFILE\.claude\skills\workflow-first-app-ui"
 ```
 
-Then invoke it with `$workflow-first-app-ui`, or let Codex select it for relevant application UI work.
+Start a new Claude Code session, then invoke it with `/workflow-first-app-ui`, or let Claude select it automatically for relevant application UI work. To share it with one project's collaborators instead, clone it into that project's `.claude/skills/workflow-first-app-ui`.
 
-To install or update with a helper script:
+### Codex
 
-```powershell
-.\scripts\install.ps1
-```
+The skill still works with Codex. Clone it into `~/.codex/skills/workflow-first-app-ui` (or `$CODEX_HOME/skills/...`) and invoke it with `$workflow-first-app-ui`.
+
+### Helper scripts
+
+The helpers install or update the skill. They default to Claude Code; pass a target for Codex or both:
 
 ```sh
-./scripts/install.sh
+./scripts/install.sh            # ~/.claude/skills/workflow-first-app-ui
+./scripts/install.sh --codex    # ${CODEX_HOME:-~/.codex}/skills/workflow-first-app-ui
+./scripts/install.sh --all      # both
+./scripts/install.sh /some/path # explicit destination
 ```
+
+```powershell
+.\scripts\install.ps1                 # Claude Code
+.\scripts\install.ps1 -Target Codex   # Codex
+.\scripts\install.ps1 -Target All     # both
+```
+
+`CLAUDE_CONFIG_DIR` and `CODEX_HOME` are honored when set.
 
 Validate a checkout with:
 
