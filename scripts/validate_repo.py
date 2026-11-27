@@ -27,6 +27,7 @@ REQUIRED_FILES = (
     "references/existing-system-research.md",
     "references/portable-bootstrap.md",
     "references/source-audit.md",
+    "references/tool-routing.md",
     "references/verification.md",
     "scripts/bootstrap_project.py",
     "scripts/install.ps1",
@@ -74,6 +75,7 @@ def validate_skill(errors: list[str]) -> None:
         "references/design-guide.md",
         "references/verification.md",
         "references/portable-bootstrap.md",
+        "references/tool-routing.md",
     )
     for target in required_links:
         if target not in text:
@@ -125,6 +127,21 @@ def validate_source_review(errors: list[str]) -> None:
         errors.append("component sources must include a YYYY-MM-DD review date")
 
 
+def validate_bootstrap_reference(errors: list[str]) -> None:
+    bootstrap = (ROOT / "scripts/bootstrap_project.py").read_text(encoding="utf-8")
+    for phrase in (
+        "<!-- workflow-first-app-ui:start -->",
+        "--check",
+        "$workflow-first-app-ui",
+    ):
+        if phrase not in bootstrap:
+            errors.append(f"bootstrap helper is missing required project reference: {phrase}")
+
+    metadata = (ROOT / "agents/openai.yaml").read_text(encoding="utf-8")
+    if not re.search(r"^\s*allow_implicit_invocation:\s*true\s*$", metadata, re.MULTILINE):
+        errors.append("agents/openai.yaml must allow implicit invocation")
+
+
 def validate_secrets(errors: list[str]) -> None:
     text_suffixes = {".md", ".ps1", ".py", ".sh", ".yaml", ".yml"}
     text_files = sorted(
@@ -155,6 +172,7 @@ def main() -> int:
     validate_links(errors)
     validate_version(errors)
     validate_source_review(errors)
+    validate_bootstrap_reference(errors)
     validate_secrets(errors)
 
     if errors:

@@ -20,7 +20,15 @@ Run:
 python /path/to/workflow-first-app-ui/scripts/bootstrap_project.py /path/to/project
 ```
 
-The helper copies `templates/PROJECT_BRIEF.md` and creates a minimal `AGENTS.md` only if those files are absent. It refuses to overwrite existing files. Complete the brief before greenfield code so the research decision and acceptance evidence travel with the project.
+The helper copies `templates/PROJECT_BRIEF.md` when absent and idempotently adds a marked workflow-first block to `AGENTS.md`. Existing project instructions are preserved. Complete the brief before greenfield code so the research decision and acceptance evidence travel with the project.
+
+Run this in local setup or CI to make a missing reference fail visibly:
+
+```sh
+python /path/to/workflow-first-app-ui/scripts/bootstrap_project.py /path/to/project --check
+```
+
+The reference has two layers: install the skill at the stable `workflow-first-app-ui` path on each device, then commit the managed `AGENTS.md` block in each project. Restart Codex after a skill update. Project-local rules still take precedence.
 
 ## Cross-device continuity
 

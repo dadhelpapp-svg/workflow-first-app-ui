@@ -29,7 +29,7 @@ For user-facing work, inspect the current product before proposing a visual dire
 
 Operational interfaces should lead with current work, exceptions, and next actions. Make summaries traceable to the records behind them. Treat mobile as prioritization and reflow, not a scaled desktop. Include loading, empty, error, permission-limited, and recovery states. Do not invent metrics, testimonials, capabilities, or production readiness.
 
-Read [`references/design-guide.md`](references/design-guide.md) for the portable design defaults. Use the installed design-review skill when its scope applies, and use browser inspection for rendered behavior; neither replaces application tests.
+Read [`references/design-guide.md`](references/design-guide.md) for the portable design defaults and [`references/tool-routing.md`](references/tool-routing.md) before selecting an external design or verification tool. Use the installed design-review skill when its scope applies, and use browser inspection for rendered behavior; neither replaces application tests.
 
 ## Implement in bounded slices
 

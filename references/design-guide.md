@@ -43,6 +43,8 @@ These defaults are inferred from repeated project decisions and corrections. An 
 
 Use an installed project-approved design skill for visual direction or structured audit when its scope applies. Use Playwright or the configured browser tooling for interactive workflows, viewport checks, console output, and screenshots. Keep application tests responsible for repeatable domain and contract correctness.
 
+Use [`tool-routing.md`](tool-routing.md) to choose among the reviewed design, motion, component, audit, and browser sources. Keep one broad visual-direction system per screen; layer only complementary audit and verification tools.
+
 When [Impeccable](https://github.com/pbakaus/impeccable) is explicitly approved and installed for the project, use its project context and narrow `critique`, `audit`, or detector passes as additional evidence for an existing interface. Pin or record the version, review its installer and hooks, and do not run live-edit mode against a deployed site or with bypassed safeguards. Impeccable findings do not replace browser workflows or business-rule tests.
 
 When Hallmark is already installed and its scope applies, follow its own design and render gates. Do not run two broad redesign systems against the same screen without a clear role for each.

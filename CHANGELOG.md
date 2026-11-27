@@ -16,6 +16,8 @@ All notable changes to this repository are documented here.
 - Evidence-based portable design guide and proportional quality gates.
 - Verified public-source audit distinguishing Impeccable from Unslop.
 - Cross-device project bootstrap helper and project brief template.
+- Reviewed routing for Unslop, Awesome Design MD, Impeccable, Taste Skill, Vercel guidelines, Playwright MCP, Transitions, and BoardUI.
+- Idempotent project-level `AGENTS.md` references with a check mode suitable for local setup or CI.
 - Validation for the research, authorization, and canonical-guide invariants.
 
 ## [1.1.0] - 2026-11-22

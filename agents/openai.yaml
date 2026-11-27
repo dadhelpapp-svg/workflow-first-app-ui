@@ -2,3 +2,5 @@ interface:
   display_name: "Workflow-First Development"
   short_description: "Research, build, verify, and hand off applications"
   default_prompt: "Use $workflow-first-app-ui to take this application request from evidence-backed planning through tested implementation and a safe release handoff."
+policy:
+  allow_implicit_invocation: true

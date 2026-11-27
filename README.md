@@ -8,6 +8,7 @@ The repository keeps one canonical lifecycle and loads detail only when it is re
 - [`references/development-standard.md`](references/development-standard.md) is the canonical end-to-end standard.
 - [`references/existing-system-research.md`](references/existing-system-research.md) defines the baseline-research gate.
 - [`references/design-guide.md`](references/design-guide.md) records the portable UI and UX defaults.
+- [`references/tool-routing.md`](references/tool-routing.md) assigns external design and verification tools non-conflicting roles.
 - [`references/verification.md`](references/verification.md) defines proportional quality gates.
 - [`references/portable-bootstrap.md`](references/portable-bootstrap.md) covers installation, project bootstrap, and handoff.
 - [`references/source-audit.md`](references/source-audit.md) records public-source verification and audit limits.
@@ -50,7 +51,11 @@ From this repository, create a small project brief without overwriting existing 
 python scripts/bootstrap_project.py /path/to/project
 ```
 
-The bootstrap adds `PROJECT_BRIEF.md` from the maintained template. It creates a minimal `AGENTS.md` only when the project does not already have one. Review both before coding.
+The bootstrap adds `PROJECT_BRIEF.md` from the maintained template and idempotently adds a marked workflow-first block to `AGENTS.md` while preserving existing project instructions. Review both before coding, then verify the reference in local setup or CI:
+
+```sh
+python scripts/bootstrap_project.py /path/to/project --check
+```
 
 ## Validate
 
