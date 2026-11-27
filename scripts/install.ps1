@@ -32,4 +32,16 @@ if (Test-Path -LiteralPath $Destination) {
     }
 }
 
-Write-Output "Workflow-First App UI is ready at $Destination"
+$Validator = Join-Path $Destination 'scripts\validate_repo.py'
+if (Get-Command python -ErrorAction SilentlyContinue) {
+    python $Validator
+} elseif (Get-Command py -ErrorAction SilentlyContinue) {
+    py -3 $Validator
+} else {
+    throw 'Python 3 is required to validate the installed skill.'
+}
+if ($LASTEXITCODE -ne 0) {
+    throw 'The installed skill failed validation.'
+}
+
+Write-Output "Workflow-First Development is ready at $Destination. Restart Codex to refresh skills."

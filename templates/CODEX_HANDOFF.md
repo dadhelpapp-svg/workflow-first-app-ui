@@ -24,6 +24,14 @@ Copy this template into the target project or the Codex task. Replace every brac
 - [Decision]: [reason]
 - [Decision]: [reason]
 
+## Existing-system research
+
+- Local systems inspected: [paths or repositories]
+- External baseline or donor: [repository and version or commit]
+- License and attribution: [license or "not applicable"]
+- Adoption decision: [baseline, bounded donor, design reference, or rejected]
+- Reason and known risks: [concise evidence]
+
 ## Setup completed
 
 - [Framework and version]

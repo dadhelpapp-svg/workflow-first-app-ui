@@ -16,4 +16,13 @@ else
   git clone "$repository" "$destination"
 fi
 
-echo "Workflow-First App UI is ready at $destination"
+if command -v python3 >/dev/null 2>&1; then
+  python3 "$destination/scripts/validate_repo.py"
+elif command -v python >/dev/null 2>&1; then
+  python "$destination/scripts/validate_repo.py"
+else
+  echo "Python 3 is required to validate the installed skill." >&2
+  exit 1
+fi
+
+echo "Workflow-First Development is ready at $destination. Restart Codex to refresh skills."

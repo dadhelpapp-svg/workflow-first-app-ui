@@ -1,52 +1,36 @@
-# Workflow-First App UI and Codex standards
+# Workflow-first application development
 
-A reusable Codex skill for extending or auditing application interfaces without discarding an established UI, component system, or business workflow. The repository also packages supporting project-handoff, browser-verification, security, and contribution standards used around the skill.
+An installable Codex skill for taking a short software request through research, design, implementation, verification, and a safe release handoff. It works with existing applications and greenfield projects, but it requires credible existing-system research before code is started from scratch.
 
-It helps an agent:
+The repository keeps one canonical lifecycle and loads detail only when it is relevant:
 
-- reuse existing components before adding dependencies;
-- select genuinely free shadcn-compatible components;
-- keep source and license provenance;
-- integrate bounded dashboard pieces without template-driven rewrites;
-- preserve business logic, accessibility, and responsive behavior; and
-- verify real user workflows with automated and rendered checks.
+- [`SKILL.md`](SKILL.md) is the installable entrypoint.
+- [`references/development-standard.md`](references/development-standard.md) is the canonical end-to-end standard.
+- [`references/existing-system-research.md`](references/existing-system-research.md) defines the baseline-research gate.
+- [`references/design-guide.md`](references/design-guide.md) records the portable UI and UX defaults.
+- [`references/verification.md`](references/verification.md) defines proportional quality gates.
+- [`references/portable-bootstrap.md`](references/portable-bootstrap.md) covers installation, project bootstrap, and handoff.
+- [`references/source-audit.md`](references/source-audit.md) records public-source verification and audit limits.
 
-## Included standards
+Project-level instructions and implemented design systems always take precedence.
 
-- [`SKILL.md`](SKILL.md) contains the workflow-first implementation and audit process.
-- [`AGENTS.md`](AGENTS.md) supplies the portable global software-design and handoff defaults.
-- [`CHAT_TO_CODEX_HANDOFF.md`](CHAT_TO_CODEX_HANDOFF.md) requires the originating chat to complete safe discovery and minimum project setup before an execution-ready Codex handoff.
-- [`templates/CODEX_HANDOFF.md`](templates/CODEX_HANDOFF.md) is the reusable handoff form, supported by two fictional [`examples/`](examples/).
-- [`PROJECT_SETUP_CHECKLIST.md`](PROJECT_SETUP_CHECKLIST.md) defines the minimum runnable baseline expected before handoff.
-- [`BROWSER_TESTING.md`](BROWSER_TESTING.md) defines the Playwright MCP setup, browser workflow, tool boundaries, and reporting standard.
-- [`SECURITY.md`](SECURITY.md) defines credential, data, browser-profile, and authorization boundaries.
-- [`references/`](references/) contains component-source, verification, and lessons-learned guidance.
+## Install on any device
 
-## Repository scope
+macOS, Linux, or Git Bash:
 
-The installable skill remains focused on workflow-first React interface work. The root standards and templates form a small companion bundle for preparing projects, handing them to Codex, and proving the resulting workflow. They do not replace project-level instructions, application tests, security review, or product decisions that require the user.
-
-The current release is recorded in [`VERSION`](VERSION), with release history in [`CHANGELOG.md`](CHANGELOG.md). See [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing source guidance or packaging.
-
-The global defaults are intentionally subordinate to project-level instructions and established project design systems.
-
-## Install
-
-Clone this repository into the Codex skills directory:
-
-```bash
+```sh
 git clone https://github.com/dadhelpapp-svg/workflow-first-app-ui.git ~/.codex/skills/workflow-first-app-ui
+python ~/.codex/skills/workflow-first-app-ui/scripts/validate_repo.py
 ```
 
-On Windows PowerShell:
+Windows PowerShell:
 
 ```powershell
 git clone https://github.com/dadhelpapp-svg/workflow-first-app-ui.git "$env:USERPROFILE\.codex\skills\workflow-first-app-ui"
+python "$env:USERPROFILE\.codex\skills\workflow-first-app-ui\scripts\validate_repo.py"
 ```
 
-Then invoke it with `$workflow-first-app-ui`, or let Codex select it for relevant application UI work.
-
-To install or update with a helper script:
+The install helpers support both a first install and a fast-forward update:
 
 ```powershell
 .\scripts\install.ps1
@@ -56,10 +40,27 @@ To install or update with a helper script:
 ./scripts/install.sh
 ```
 
-Validate a checkout with:
+Restart Codex after installation or update. Invoke the skill with `$workflow-first-app-ui`, or let Codex select it for application-development work.
+
+## Start a project
+
+From this repository, create a small project brief without overwriting existing instructions:
+
+```sh
+python scripts/bootstrap_project.py /path/to/project
+```
+
+The bootstrap adds `PROJECT_BRIEF.md` from the maintained template. It creates a minimal `AGENTS.md` only when the project does not already have one. Review both before coding.
+
+## Validate
 
 ```sh
 python scripts/validate_repo.py
+python /path/to/skill-creator/scripts/quick_validate.py .
 ```
 
-The repository contains guidance and source links, not redistributed premium component code.
+The repository validator checks package structure, internal links, frontmatter, versioning, secret-like text, and the presence of the research and release gates. GitHub Actions also checks the shell and PowerShell helpers.
+
+## Scope and safety
+
+This skill does not silently install third-party design tools, copy premium source, choose production credentials, merge pull requests, or deploy. External repositories are evaluated as baselines or bounded donors and retain their own licenses. See [`SECURITY.md`](SECURITY.md) and [`CONTRIBUTING.md`](CONTRIBUTING.md).

@@ -2,7 +2,7 @@
 
 Use this list as a discovery aid, not as a permanent license guarantee. Before copying or installing an item, open its current source page and repository license. Confirm that the exact item is free; some catalogs mix free components with paid blocks.
 
-Last reviewed: 2026-11-22. This review confirmed the linked source was reachable and recorded the status presented by the source on that date. It is not a permanent license guarantee.
+Last reviewed: 2026-11-27. This review confirmed the linked source was reachable and recorded the status presented by the source on that date. It is not a permanent license guarantee.
 
 ## Preferred order
 

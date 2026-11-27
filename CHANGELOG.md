@@ -2,6 +2,22 @@
 
 All notable changes to this repository are documented here.
 
+## [2.0.0] - 2026-11-27
+
+### Changed
+
+- Expanded the skill from UI-only guidance into an end-to-end application-development workflow while preserving the existing skill name and install path.
+- Consolidated repeated setup, handoff, browser, lessons-learned, and verification guidance into one canonical lifecycle with focused references.
+- Made credible existing-system research a required gate before greenfield scaffolding.
+- Reduced `AGENTS.md` to repository-specific invariants and validation commands.
+
+### Added
+
+- Evidence-based portable design guide and proportional quality gates.
+- Verified public-source audit distinguishing Impeccable from Unslop.
+- Cross-device project bootstrap helper and project brief template.
+- Validation for the research, authorization, and canonical-guide invariants.
+
 ## [1.1.0] - 2026-11-22
 
 ### Added

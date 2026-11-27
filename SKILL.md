@@ -1,74 +1,50 @@
 ---
 name: workflow-first-app-ui
-description: Design, extend, or audit React application interfaces while preserving existing workflows and design systems. Use when selecting reusable UI or dashboard components, integrating shadcn-compatible code, improving responsive UX, or validating an application UI.
+description: Take software from a short product request to a tested, handoff-ready application while preserving existing systems. Use for greenfield or existing app work that needs baseline research, implementation, UI quality, verification, and release discipline.
 ---
 
-# Workflow-First App UI
+# Workflow-first application development
 
-Improve the user's real workflow without replacing a design system they already value. Prefer a bounded integration over a template-driven rewrite.
+Turn the user's request into the smallest complete, credible application outcome. Prefer evidence and working software over speculative scaffolding. Preserve an existing system when one already exists.
 
-## Establish the application boundary
+## Start from project authority
 
-Before changing code, inspect the project instructions, dirty worktree, framework and versions, styling system, shared components, design tokens, routes, primary workflows, business-rule tests, and existing acceptance evidence. Treat project-level rules and established components as authoritative.
+Read applicable `AGENTS.md`, the dirty worktree, current architecture, package scripts, tests, design files, and recent acceptance evidence. Project rules and an implemented design system outrank this skill. Do not repeat completed, current, evidence-backed work.
 
-When starting from an originating-chat handoff or preparing a new project, use [CHAT_TO_CODEX_HANDOFF.md](CHAT_TO_CODEX_HANDOFF.md) and [PROJECT_SETUP_CHECKLIST.md](PROJECT_SETUP_CHECKLIST.md) only when that setup context is relevant. Do not repeat completed, evidence-backed preparation merely to follow a generic sequence.
+Define the primary user workflow, acceptance criteria, non-goals, data and authorization boundaries, and the minimum proof needed. Ask only when a missing product choice would materially change the result.
 
-Identify whether the task is:
+Read [`references/development-standard.md`](references/development-standard.md) for the canonical lifecycle and stopping conditions.
 
-- extending an existing interface;
-- composing a new interface within an established system;
-- adopting a dashboard or component source; or
-- auditing usability, accessibility, and responsive behavior.
+## Research before greenfield code
 
-If the user likes the current UI, preserve its visual language and interaction model. Do not introduce a second design system merely because a source component looks polished in isolation.
+Before selecting a stack or scaffolding a new system, inspect reusable local projects and credible existing repositories. Compare viable candidates against the actual workflow, license, maintenance, security posture, compatibility, accessibility, and cost of adoption. Popularity is supporting evidence, not proof of quality.
 
-## Select components in this order
+Record whether the candidate is a baseline, bounded donor, design reference, or rejected option. Never execute an unfamiliar installer or import a template before reviewing its license, scripts, dependencies, and architectural assumptions.
 
-1. Reuse or compose existing project components.
-2. Use the project's established component source or official framework primitives.
-3. Use a verified free component from a compatible registry.
-4. Build a small original component that follows the existing tokens and APIs.
+For the research record and credibility gate, read [`references/existing-system-research.md`](references/existing-system-research.md). For the verified "unslop" identification, read [`references/source-audit.md`](references/source-audit.md).
 
-For source selection, read [references/component-sources.md](references/component-sources.md). Verify the current license and free/paid status before copying or installing code. Do not reproduce premium components from screenshots or previews. If the user supplies licensed source, integrate it without redistributing it.
+## Design around the real workflow
 
-Use full dashboard templates as references or bounded donors. Do not replace the application's routing, state, authorization, data model, or business logic with template assumptions.
+For user-facing work, inspect the current product before proposing a visual direction. Reuse existing components and tokens first; for compatible React projects, prefer the project's shadcn-compatible primitives before third-party code. Import the smallest useful unit and preserve routing, state, permissions, data ownership, and domain commands.
 
-## Design around workflows
+Operational interfaces should lead with current work, exceptions, and next actions. Make summaries traceable to the records behind them. Treat mobile as prioritization and reflow, not a scaled desktop. Include loading, empty, error, permission-limited, and recovery states. Do not invent metrics, testimonials, capabilities, or production readiness.
 
-Map the user's primary task before selecting UI. Make the next action, current context, exceptions, and recoverable errors easy to find. Summaries should lead to the records or work queues that produced them.
+Read [`references/design-guide.md`](references/design-guide.md) for the portable design defaults. Use the installed design-review skill when its scope applies, and use browser inspection for rendered behavior; neither replaces application tests.
 
-Carry useful context across related screens. Clear stale context when identity, tenant, branch, role, organization, or another security boundary changes.
+## Implement in bounded slices
 
-Use compact layouts for operational software, while retaining labels, focus visibility, readable grouping, useful empty states, and reachable actions. Treat mobile as a prioritization and reflow problem, not a scaled-down desktop screenshot.
+Choose a thin vertical slice that reaches a user-visible or API-observable outcome. Keep business transitions in testable domain or service boundaries. Preserve compatibility deliberately. Add dependencies only when their benefit exceeds integration and maintenance cost.
 
-Read [references/lessons-learned.md](references/lessons-learned.md) when planning a substantial interface or dashboard change.
+When the project is not yet runnable, create only the baseline needed for the first workflow: package manifest, source and test structure, safe environment example, documented commands, smallest useful route or endpoint, and fictional fixtures. Do not fabricate credentials or connect production data.
 
-## Implement without semantic drift
+## Prove the result
 
-- Reuse tokens for color, type, spacing, radius, focus, status, and motion.
-- Adapt imported markup to existing component APIs and naming.
-- Preserve domain commands, validation, authorization, audit history, and state transitions.
-- Keep business transitions out of display-only components when the application already has a domain or service boundary.
-- Use text with color for status. Preserve keyboard operation, accessible names, semantic structure, focus management, reduced motion, and error association.
-- Avoid unnecessary dependencies. Inspect imported code and its transitive packages before accepting it.
-- Replace demo data, claims, logos, testimonials, and metrics. Do not present placeholder content as real.
+Run the checks that protect the changed behavior. A normal application gate includes relevant type, unit, business-rule, schema or contract, build, and lint checks. A UI change also needs a rendered primary workflow at representative desktop and mobile widths, keyboard and focus checks, console and failed-request inspection, and affected state coverage.
 
-Use Hallmark for meaningful visual direction, design audits, accessibility, and responsive-quality review when its scope applies. Use the configured Playwright MCP server for interactive browser inspection, responsive checks, console review, and workflow verification. Keep type, unit, business-rule, schema-contract, and build checks responsible for repeatable code and domain correctness. See [BROWSER_TESTING.md](BROWSER_TESTING.md) for the shared browser standard.
+Live integrations require live staging or deployed evidence when that proof is in scope and authorized; local mocks do not prove an external service worked. Read [`references/verification.md`](references/verification.md) before substantial or release-bound work.
 
-## Verify the result
+## Hand off or release
 
-Run the checks that protect the changed behavior: type checks, unit tests, business-rule tests, schema or contract tests, and build checks as applicable. Browser checks complement these tests; they do not replace them.
+Report changed behavior, reused and external sources with license provenance, exact checks run, browser or live evidence, known risks, and unverified states. Keep commits focused and review the final diff for secrets and unrelated changes.
 
-Exercise at least one real primary workflow in the rendered application. Check representative desktop and mobile viewports, plus tablet when the product supports it or the layout risk warrants it. Inspect keyboard behavior, console errors, failed requests, loading, empty and error states, overflow, and preservation of important actions. Use fictional or isolated test data.
-
-For substantial changes, read [references/verification.md](references/verification.md) and [BROWSER_TESTING.md](BROWSER_TESTING.md).
-
-Report:
-
-- what changed;
-- which existing and external components were used;
-- source and license provenance for imported code;
-- tests and browser flows actually executed; and
-- remaining risks or unverified behavior.
-
-Do not claim accessibility, production readiness, or workflow completion from a static code scan alone.
+Prepare a branch and pull request when requested. Merging, production deployment, publishing, paid resources, external messages, and production data changes still require explicit authorization. Use [`references/portable-bootstrap.md`](references/portable-bootstrap.md) only for installation, cross-device setup, or a new handoff.

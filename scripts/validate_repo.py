@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the workflow-first-app-ui skill repository using only the standard library."""
+"""Validate the workflow-first-app-ui skill repository using the standard library."""
 
 from __future__ import annotations
 
@@ -11,24 +11,28 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = (
+    ".github/workflows/validate.yml",
     "AGENTS.md",
-    "BROWSER_TESTING.md",
     "CHANGELOG.md",
-    "CHAT_TO_CODEX_HANDOFF.md",
     "CONTRIBUTING.md",
     "LICENSE",
-    "PROJECT_SETUP_CHECKLIST.md",
     "README.md",
     "SECURITY.md",
     "SKILL.md",
     "VERSION",
     "agents/openai.yaml",
-    "examples/existing-ui-change-handoff.md",
-    "examples/new-react-project-handoff.md",
     "references/component-sources.md",
-    "references/lessons-learned.md",
+    "references/design-guide.md",
+    "references/development-standard.md",
+    "references/existing-system-research.md",
+    "references/portable-bootstrap.md",
+    "references/source-audit.md",
     "references/verification.md",
+    "scripts/bootstrap_project.py",
+    "scripts/install.ps1",
+    "scripts/install.sh",
     "templates/CODEX_HANDOFF.md",
+    "templates/PROJECT_BRIEF.md",
 )
 
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
@@ -61,10 +65,37 @@ def validate_skill(errors: list[str]) -> None:
         return
     frontmatter = match.group(1)
     if not re.search(r"^name:\s*workflow-first-app-ui\s*$", frontmatter, re.MULTILINE):
-        errors.append("SKILL.md frontmatter must declare name: workflow-first-app-ui")
-    description = re.search(r"^description:\s*(.+)$", frontmatter, re.MULTILINE)
-    if not description or not description.group(1).strip():
+        errors.append("SKILL.md frontmatter must preserve name: workflow-first-app-ui")
+    if not re.search(r"^description:\s*\S.+$", frontmatter, re.MULTILINE):
         errors.append("SKILL.md frontmatter must contain a description")
+    required_links = (
+        "references/development-standard.md",
+        "references/existing-system-research.md",
+        "references/design-guide.md",
+        "references/verification.md",
+        "references/portable-bootstrap.md",
+    )
+    for target in required_links:
+        if target not in text:
+            errors.append(f"SKILL.md must route to {target}")
+
+
+def validate_canonical_guidance(errors: list[str]) -> None:
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    if len(agents) > 2_000:
+        errors.append("AGENTS.md must remain lightweight (2000 characters or fewer)")
+    if "references/development-standard.md" not in agents:
+        errors.append("AGENTS.md must point to the canonical development standard")
+
+    standard = (ROOT / "references/development-standard.md").read_text(encoding="utf-8")
+    research = (ROOT / "references/existing-system-research.md").read_text(encoding="utf-8")
+    combined = f"{standard}\n{research}".lower()
+    for phrase in ("before greenfield", "license", "baseline", "bounded donor"):
+        if phrase not in combined:
+            errors.append(f"canonical guidance is missing required research concept: {phrase}")
+    for phrase in ("explicit authorization", "production deployment", "merge"):
+        if phrase not in standard.lower():
+            errors.append(f"canonical standard is missing release boundary: {phrase}")
 
 
 def validate_links(errors: list[str]) -> None:
@@ -76,28 +107,20 @@ def validate_links(errors: list[str]) -> None:
                 continue
             relative_target = unquote(target.split("#", 1)[0])
             if relative_target and not (path.parent / relative_target).resolve().exists():
-                errors.append(
-                    f"broken local link in {path.relative_to(ROOT)}: {raw_target}"
-                )
+                errors.append(f"broken local link in {path.relative_to(ROOT)}: {raw_target}")
 
 
 def validate_version(errors: list[str]) -> None:
-    path = ROOT / "VERSION"
-    if not path.is_file():
-        return
-    version = path.read_text(encoding="utf-8").strip()
+    version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     if not re.fullmatch(r"\d+\.\d+\.\d+", version):
-        errors.append("VERSION must contain a semantic version such as 1.2.3")
+        errors.append("VERSION must contain a semantic version such as 2.0.0")
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     if f"## [{version}]" not in changelog:
         errors.append(f"CHANGELOG.md does not contain the current version {version}")
 
 
 def validate_source_review(errors: list[str]) -> None:
-    path = ROOT / "references/component-sources.md"
-    if not path.is_file():
-        return
-    text = path.read_text(encoding="utf-8")
+    text = (ROOT / "references/component-sources.md").read_text(encoding="utf-8")
     if not re.search(r"Last reviewed:\s*\d{4}-\d{2}-\d{2}", text):
         errors.append("component sources must include a YYYY-MM-DD review date")
 
@@ -112,8 +135,6 @@ def validate_secrets(errors: list[str]) -> None:
         and (path.suffix in text_suffixes or path.name == "VERSION")
     )
     for path in text_files:
-        if not path.is_file():
-            continue
         text = path.read_text(encoding="utf-8")
         for label, pattern in SECRET_PATTERNS.items():
             if pattern.search(text):
@@ -123,7 +144,14 @@ def validate_secrets(errors: list[str]) -> None:
 def main() -> int:
     errors: list[str] = []
     validate_required(errors)
+    if errors:
+        print("Repository validation failed:")
+        for error in errors:
+            print(f"- {error}")
+        return 1
+
     validate_skill(errors)
+    validate_canonical_guidance(errors)
     validate_links(errors)
     validate_version(errors)
     validate_source_review(errors)
