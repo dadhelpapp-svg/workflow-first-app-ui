@@ -11,6 +11,7 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = (
+    ".github/workflows/validate.yml",
     "AGENTS.md",
     "BROWSER_TESTING.md",
     "CHANGELOG.md",
@@ -28,9 +29,18 @@ REQUIRED_FILES = (
     "examples/existing-ui-change-handoff.md",
     "examples/new-react-project-handoff.md",
     "references/component-sources.md",
-    "references/lessons-learned.md",
+    "references/design-guide.md",
+    "references/development-standard.md",
+    "references/existing-system-research.md",
+    "references/portable-bootstrap.md",
+    "references/source-audit.md",
+    "references/tool-routing.md",
     "references/verification.md",
+    "scripts/bootstrap_project.py",
+    "scripts/install.ps1",
+    "scripts/install.sh",
     "templates/CLAUDE_HANDOFF.md",
+    "templates/PROJECT_BRIEF.md",
     "templates/SPEC_KIT_CONSTITUTION.md",
 )
 
@@ -68,6 +78,36 @@ def validate_skill(errors: list[str]) -> None:
     description = re.search(r"^description:\s*(.+)$", frontmatter, re.MULTILINE)
     if not description or not description.group(1).strip():
         errors.append("SKILL.md frontmatter must contain a description")
+    required_links = (
+        "references/development-standard.md",
+        "references/existing-system-research.md",
+        "references/design-guide.md",
+        "references/verification.md",
+        "references/portable-bootstrap.md",
+        "references/tool-routing.md",
+    )
+    for target in required_links:
+        if target not in text:
+            errors.append(f"SKILL.md must route to {target}")
+
+
+def validate_canonical_guidance(errors: list[str]) -> None:
+    agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    if "references/development-standard.md" not in agents:
+        errors.append("AGENTS.md must point to the canonical development standard")
+    claude = (ROOT / "CLAUDE.md").read_text(encoding="utf-8")
+    if not re.search(r"^@AGENTS\.md\s*$", claude, re.MULTILINE):
+        errors.append("CLAUDE.md must import @AGENTS.md")
+
+    standard = (ROOT / "references/development-standard.md").read_text(encoding="utf-8")
+    research = (ROOT / "references/existing-system-research.md").read_text(encoding="utf-8")
+    combined = f"{standard}\n{research}".lower()
+    for phrase in ("before greenfield", "license", "baseline", "bounded donor"):
+        if phrase not in combined:
+            errors.append(f"canonical guidance is missing required research concept: {phrase}")
+    for phrase in ("explicit authorization", "production deployment", "merge"):
+        if phrase not in standard.lower():
+            errors.append(f"canonical standard is missing release boundary: {phrase}")
 
 
 def validate_links(errors: list[str]) -> None:
@@ -105,6 +145,23 @@ def validate_source_review(errors: list[str]) -> None:
         errors.append("component sources must include a YYYY-MM-DD review date")
 
 
+def validate_bootstrap_reference(errors: list[str]) -> None:
+    bootstrap = (ROOT / "scripts/bootstrap_project.py").read_text(encoding="utf-8")
+    for phrase in (
+        "<!-- workflow-first-app-ui:start -->",
+        "--check",
+        "/workflow-first-app-ui",
+        "$workflow-first-app-ui",
+        "@AGENTS.md",
+    ):
+        if phrase not in bootstrap:
+            errors.append(f"bootstrap helper is missing required project reference: {phrase}")
+
+    metadata = (ROOT / "agents/openai.yaml").read_text(encoding="utf-8")
+    if not re.search(r"^\s*allow_implicit_invocation:\s*true\s*$", metadata, re.MULTILINE):
+        errors.append("agents/openai.yaml must allow implicit invocation")
+
+
 def validate_secrets(errors: list[str]) -> None:
     text_suffixes = {".md", ".ps1", ".py", ".sh", ".yaml", ".yml"}
     text_files = sorted(
@@ -126,10 +183,18 @@ def validate_secrets(errors: list[str]) -> None:
 def main() -> int:
     errors: list[str] = []
     validate_required(errors)
+    if errors:
+        print("Repository validation failed:")
+        for error in errors:
+            print(f"- {error}")
+        return 1
+
     validate_skill(errors)
+    validate_canonical_guidance(errors)
     validate_links(errors)
     validate_version(errors)
     validate_source_review(errors)
+    validate_bootstrap_reference(errors)
     validate_secrets(errors)
 
     if errors:

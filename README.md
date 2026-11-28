@@ -1,6 +1,6 @@
-# Workflow-First App UI skill and standards
+# Workflow-first application development skill and standards
 
-A reusable Claude Code skill (also compatible with Codex) for extending or auditing application interfaces without discarding an established UI, component system, or business workflow. The repository also packages supporting project-handoff, browser-verification, security, and contribution standards used around the skill.
+A reusable Claude Code skill (also compatible with Codex) for taking a short software request through research, design, implementation, verification, and a safe release handoff, without discarding an established UI, component system, or business workflow. It works with existing applications and greenfield projects, but requires credible existing-system research before code is started from scratch. The repository also packages supporting project-handoff, browser-verification, security, and contribution standards used around the skill.
 
 It helps an agent:
 
@@ -13,7 +13,15 @@ It helps an agent:
 
 ## Included standards
 
-- [`SKILL.md`](SKILL.md) contains the workflow-first implementation and audit process.
+- [`SKILL.md`](SKILL.md) is the installable entrypoint.
+- [`references/development-standard.md`](references/development-standard.md) is the canonical end-to-end lifecycle.
+- [`references/existing-system-research.md`](references/existing-system-research.md) defines the baseline-research gate before greenfield code.
+- [`references/design-guide.md`](references/design-guide.md) records the portable UI, UX, accessibility, and motion defaults.
+- [`references/tool-routing.md`](references/tool-routing.md) assigns external design and verification tools non-conflicting roles.
+- [`references/verification.md`](references/verification.md) defines proportional quality gates.
+- [`references/portable-bootstrap.md`](references/portable-bootstrap.md) covers installation, project bootstrap, and cross-device handoff.
+- [`references/source-audit.md`](references/source-audit.md) records public-source verification and audit limits.
+- [`references/component-sources.md`](references/component-sources.md) lists reviewed free component sources.
 - [`AGENTS.md`](AGENTS.md) supplies the portable global software-design and handoff defaults.
 - [`CLAUDE.md`](CLAUDE.md) imports `AGENTS.md` so Claude Code and Codex share the same defaults.
 - [`CHAT_TO_CLAUDE_HANDOFF.md`](CHAT_TO_CLAUDE_HANDOFF.md) requires the originating chat to complete safe discovery and minimum project setup before an execution-ready Claude Code handoff.
@@ -22,11 +30,10 @@ It helps an agent:
 - [`SPEC_DRIVEN_DEVELOPMENT.md`](SPEC_DRIVEN_DEVELOPMENT.md) explains when and how to use [GitHub Spec Kit](https://github.com/github/spec-kit) in application projects with Claude Code and Codex, and [`templates/SPEC_KIT_CONSTITUTION.md`](templates/SPEC_KIT_CONSTITUTION.md) seeds a Spec Kit constitution from these standards.
 - [`BROWSER_TESTING.md`](BROWSER_TESTING.md) defines the Playwright MCP setup, browser workflow, tool boundaries, and reporting standard.
 - [`SECURITY.md`](SECURITY.md) defines credential, data, browser-profile, and authorization boundaries.
-- [`references/`](references/) contains component-source, verification, and lessons-learned guidance.
 
 ## Repository scope
 
-The installable skill remains focused on workflow-first React interface work. The root standards and templates form a small companion bundle for preparing projects, handing them to Claude Code, and proving the resulting workflow. They do not replace project-level instructions, application tests, security review, or product decisions that require the user.
+The installable skill covers the full application lifecycle, with workflow-first interface work at its core. The root standards and templates form a small companion bundle for preparing projects, handing them to Claude Code, and proving the resulting workflow. They do not replace project-level instructions, application tests, security review, or product decisions that require the user.
 
 The current release is recorded in [`VERSION`](VERSION), with release history in [`CHANGELOG.md`](CHANGELOG.md). See [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing source guidance or packaging.
 
@@ -73,6 +80,22 @@ The helpers install or update the skill. They default to Claude Code; pass a tar
 
 `CLAUDE_CONFIG_DIR` and `CODEX_HOME` are honored when set.
 
+The helpers run the repository validator after installing.
+
+## Start a project
+
+From this repository, add a project brief and a workflow-first reference to an application project without overwriting its existing instructions:
+
+```sh
+python scripts/bootstrap_project.py /path/to/project
+```
+
+This copies `PROJECT_BRIEF.md` from [`templates/PROJECT_BRIEF.md`](templates/PROJECT_BRIEF.md), adds a marked workflow-first block to the project's `AGENTS.md`, and makes sure its `CLAUDE.md` imports `@AGENTS.md`. Running it again changes nothing. Review the files before coding, then verify them in local setup or CI:
+
+```sh
+python scripts/bootstrap_project.py /path/to/project --check
+```
+
 ### Spec Kit (optional, per application project)
 
 Spec Kit is installed into the application you are building, not into this repository. Install the CLI once, then initialize a project for both agents:
@@ -85,10 +108,14 @@ specify integration install codex
 
 See [`SPEC_DRIVEN_DEVELOPMENT.md`](SPEC_DRIVEN_DEVELOPMENT.md) for when to use it and how its steps map onto this skill.
 
+## Validate
+
 Validate a checkout with:
 
 ```sh
 python scripts/validate_repo.py
 ```
 
-The repository contains guidance and source links, not redistributed premium component code.
+The validator checks package structure, internal links, frontmatter, versioning, secret-like text, and the presence of the research and release gates. GitHub Actions also checks the shell and PowerShell helpers.
+
+The repository contains guidance and source links, not redistributed premium component code. It does not silently install third-party design tools, merge pull requests, or deploy.

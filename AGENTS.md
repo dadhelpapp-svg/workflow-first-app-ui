@@ -6,6 +6,8 @@ For compatible React applications, use Shadcn UI Kit as a component reference an
 
 Preserve business logic during interface changes. Validate meaningful changes with appropriate automated tests and observable UI checks. Browser checks complement rather than replace unit, business-rule, schema-contract, and type checks. Avoid unnecessary dependencies and unrelated changes. Never remove or weaken functionality merely to satisfy subjective design advice.
 
+Before greenfield code, inspect local systems and compare credible maintained baselines, and record the choice or why none fits. The canonical end-to-end lifecycle is in [references/development-standard.md](references/development-standard.md).
+
 These are defaults, not mandatory technology choices. Project-level instructions and established project design systems take precedence.
 
 ## Chat-to-Claude handoff default

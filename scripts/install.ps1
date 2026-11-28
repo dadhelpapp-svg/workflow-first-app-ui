@@ -54,7 +54,19 @@ function Install-Skill([string]$Path) {
         }
     }
 
-    Write-Output "Workflow-First App UI is ready at $Path"
+    $Validator = Join-Path $Path 'scripts\validate_repo.py'
+    if (Get-Command python -ErrorAction SilentlyContinue) {
+        python $Validator
+    } elseif (Get-Command py -ErrorAction SilentlyContinue) {
+        py -3 $Validator
+    } else {
+        throw 'Python 3 is required to validate the installed skill.'
+    }
+    if ($LASTEXITCODE -ne 0) {
+        throw 'The installed skill failed validation.'
+    }
+
+    Write-Output "Workflow-First Development is ready at $Path. Start a new Claude Code or Codex session to refresh skills."
 }
 
 if (-not [string]::IsNullOrWhiteSpace($Destination)) {

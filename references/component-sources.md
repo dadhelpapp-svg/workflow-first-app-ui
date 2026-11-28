@@ -2,7 +2,7 @@
 
 Use this list as a discovery aid, not as a permanent license guarantee. Before copying or installing an item, open its current source page and repository license. Confirm that the exact item is free; some catalogs mix free components with paid blocks.
 
-Last reviewed: 2026-11-22. This review confirmed the linked source was reachable and recorded the status presented by the source on that date. It is not a permanent license guarantee.
+Last reviewed: 2026-11-27. This review confirmed the linked source was reachable and recorded the status presented by the source on that date. It is not a permanent license guarantee.
 
 ## Preferred order
 
@@ -15,6 +15,7 @@ Last reviewed: 2026-11-22. This review confirmed the linked source was reachable
 | [Dashral](https://github.com/hasral/dashral) | Motion-aware metrics, charts, blocks, and a dashboard reference | Public repository presents free blocks and an MIT license | Use public repository files covered by the current license. Adapt motion to reduced-motion preferences and the host application's visual language. |
 | [Shadcn Dashboard](https://github.com/shadcndashboard/shadcndashboard) | Full Vite/React dashboard reference | Public repository describes a free open-source dashboard and displays an MIT license | Treat as a donor or reference for bounded pages. Check current attribution language as well as the license. |
 | [Tremor](https://npm.tremor.so/) | Charts, KPI displays, trackers, and analytics | Site presents its React components as open source; templates and blocks are separate offerings | It has its own conventions. Verify the exact package or block and prefer adapting individual visualization patterns instead of importing a competing design system wholesale. |
+| [BoardUI](https://github.com/BoardUI/boardui) | Next.js and Tailwind v4 dashboards and agentic interface patterns | Public MIT repository; its catalog includes free and Pro surfaces | Use only when the project stack and visual system match. Verify the exact item is free or covered by the user's license and prefer bounded components over a wholesale design-system replacement. |
 
 The official [shadcn registry directory](https://ui.shadcn.com/docs/registry) can help find additional registries. Community code still needs source review, maintenance review, and license verification.
 
