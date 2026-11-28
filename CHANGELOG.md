@@ -2,6 +2,29 @@
 
 All notable changes to this repository are documented here.
 
+## [2.0.0] - 2026-11-28
+
+This release combines the end-to-end consolidation from pull request #1 with the Claude Code migration (1.2.0) and Spec Kit standard (1.3.0). The migrated handoff, browser-testing, setup-checklist, Spec Kit, and example files are kept.
+
+### Changed
+
+- Expanded the skill from UI-only guidance into an end-to-end application-development workflow while keeping the `workflow-first-app-ui` name and install paths.
+- Made credible existing-system research a required gate before greenfield scaffolding.
+- Rewrote `references/verification.md` as proportional quality gates with a live-proof boundary.
+- Merged `references/lessons-learned.md` into the new design guide and development standard.
+- The install helpers now validate the installed skill.
+- `agents/openai.yaml` allows implicit invocation in Codex.
+
+### Added
+
+- `references/development-standard.md`, the canonical lifecycle.
+- `references/existing-system-research.md`, `references/design-guide.md`, `references/tool-routing.md`, `references/portable-bootstrap.md`, and `references/source-audit.md`.
+- A motion rule in the design guide: animate one shared selection indicator, prefer CSS or the Web Animations API before an animation library, and honor reduced motion.
+- `scripts/bootstrap_project.py` and `templates/PROJECT_BRIEF.md`. The bootstrap adds a managed `AGENTS.md` block and a `CLAUDE.md` import of `@AGENTS.md`, with a `--check` mode for CI.
+- BoardUI in the reviewed component sources.
+- An existing-system research section in the Claude handoff template.
+- Validation for the research, authorization, canonical-guide, bootstrap, and `CLAUDE.md` import invariants.
+
 ## [1.3.0] - 2026-11-27
 
 ### Added
