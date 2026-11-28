@@ -14,13 +14,15 @@ REQUIRED_FILES = (
     "AGENTS.md",
     "BROWSER_TESTING.md",
     "CHANGELOG.md",
-    "CHAT_TO_CODEX_HANDOFF.md",
+    "CLAUDE.md",
+    "CHAT_TO_CLAUDE_HANDOFF.md",
     "CONTRIBUTING.md",
     "LICENSE",
     "PROJECT_SETUP_CHECKLIST.md",
     "README.md",
     "SECURITY.md",
     "SKILL.md",
+    "SPEC_DRIVEN_DEVELOPMENT.md",
     "VERSION",
     "agents/openai.yaml",
     "examples/existing-ui-change-handoff.md",
@@ -28,7 +30,8 @@ REQUIRED_FILES = (
     "references/component-sources.md",
     "references/lessons-learned.md",
     "references/verification.md",
-    "templates/CODEX_HANDOFF.md",
+    "templates/CLAUDE_HANDOFF.md",
+    "templates/SPEC_KIT_CONSTITUTION.md",
 )
 
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")

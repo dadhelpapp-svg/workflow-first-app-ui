@@ -1,10 +1,12 @@
-# Chat-to-Codex project handoff
+# Chat-to-Claude project handoff
 
-The originating chat should complete as much safe, useful preparation as its available tools allow before handing work to Codex. The goal is to conserve implementation tokens, remove avoidable ambiguity, and let Codex begin from a working baseline instead of repeating discovery.
+The originating chat should complete as much safe, useful preparation as its available tools allow before handing work to Claude Code. The goal is to conserve implementation tokens, remove avoidable ambiguity, and let Claude Code begin from a working baseline instead of repeating discovery.
 
 This is a minimum standard, not a reason to delay urgent fixes or pretend unverified setup is complete.
 
-Use the [minimum project setup checklist](PROJECT_SETUP_CHECKLIST.md) during preparation and the [Codex handoff template](templates/CODEX_HANDOFF.md) for the final packet. See [examples/new-react-project-handoff.md](examples/new-react-project-handoff.md) and [examples/existing-ui-change-handoff.md](examples/existing-ui-change-handoff.md) for fictional completed examples.
+The same packet works unchanged for other coding agents, such as Codex, that read `AGENTS.md`.
+
+Use the [minimum project setup checklist](PROJECT_SETUP_CHECKLIST.md) during preparation and the [Claude handoff template](templates/CLAUDE_HANDOFF.md) for the final packet. See [examples/new-react-project-handoff.md](examples/new-react-project-handoff.md) and [examples/existing-ui-change-handoff.md](examples/existing-ui-change-handoff.md) for fictional completed examples.
 
 ## Before the handoff
 
@@ -22,15 +24,16 @@ The originating chat should:
    - create the initial route, shell, or smallest runnable workflow;
    - install only justified dependencies; and
    - run the baseline checks and confirm the application can start or build.
-5. For an existing project, preserve its architecture and prepare the exact files, routes, components, fixtures, or issue context Codex will need.
+5. For an existing project, preserve its architecture and prepare the exact files, routes, components, fixtures, or issue context Claude Code will need.
 6. Gather reusable source material, screenshots, designs, API contracts, sample data, and license information when they are relevant and permitted.
-7. Leave the workspace in a coherent state. Do not hand off a half-applied dependency change or an unexplained failing baseline.
+7. If the project uses GitHub Spec Kit and the chat can run it, complete the constitution and specification (and the plan, once the stack is decided), commit them, and reference the `specs/<feature>/` files in the handoff. See [SPEC_DRIVEN_DEVELOPMENT.md](SPEC_DRIVEN_DEVELOPMENT.md).
+8. Leave the workspace in a coherent state. Do not hand off a half-applied dependency change or an unexplained failing baseline.
 
 Do not fabricate credentials, copy secrets into prompts or repositories, mutate production data, publish or deploy without authorization, or make a consequential product decision that requires the user.
 
 ## Required handoff packet
 
-Provide Codex with a compact, execution-ready handoff containing:
+Provide Claude Code with a compact, execution-ready handoff containing:
 
 - the objective and acceptance criteria;
 - the repository, branch or worktree, and starting commit when applicable;
@@ -43,10 +46,10 @@ Provide Codex with a compact, execution-ready handoff containing:
 - known failures, risks, and unverified behavior; and
 - any action that still needs user authorization or input.
 
-Prefer references to committed files over pasting large duplicated content. Include exact error text only when it helps Codex continue.
+Prefer references to committed files over pasting large duplicated content. Include exact error text only when it helps Claude Code continue.
 
-## Codex starting behavior
+## Claude starting behavior
 
-Codex should treat a current, evidence-backed handoff as the starting point and avoid repeating completed discovery or setup. It should verify the prepared baseline proportionately, inspect anything stale or contradictory, then continue implementation, testing, and rendered workflow verification.
+Claude Code should treat a current, evidence-backed handoff as the starting point and avoid repeating completed discovery or setup. It should verify the prepared baseline proportionately, inspect anything stale or contradictory, then continue implementation, testing, and rendered workflow verification.
 
 If the originating chat cannot perform part of the minimum setup, it should say exactly why and hand off the smallest clearly defined remaining setup task.

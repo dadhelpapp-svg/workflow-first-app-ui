@@ -1,35 +1,71 @@
+<#
+.SYNOPSIS
+Install or update the workflow-first-app-ui skill.
+
+.EXAMPLE
+.\scripts\install.ps1                   # Claude Code: ~\.claude\skills\workflow-first-app-ui
+.\scripts\install.ps1 -Target Codex     # Codex: $env:CODEX_HOME or ~\.codex
+.\scripts\install.ps1 -Target All       # both locations
+.\scripts\install.ps1 -Destination C:\path\to\skill
+#>
 [CmdletBinding()]
 param(
-    [string]$Destination
+    [string]$Destination,
+    [ValidateSet('Claude', 'Codex', 'All')]
+    [string]$Target = 'Claude'
 )
 
 $ErrorActionPreference = 'Stop'
 $Repository = 'https://github.com/dadhelpapp-svg/workflow-first-app-ui.git'
+$SkillName = 'workflow-first-app-ui'
 
-if ([string]::IsNullOrWhiteSpace($Destination)) {
-    $CodexRoot = $env:CODEX_HOME
-    if ([string]::IsNullOrWhiteSpace($CodexRoot)) {
-        $CodexRoot = Join-Path $env:USERPROFILE '.codex'
+function Get-ClaudeDestination {
+    $Root = $env:CLAUDE_CONFIG_DIR
+    if ([string]::IsNullOrWhiteSpace($Root)) {
+        $Root = Join-Path $env:USERPROFILE '.claude'
     }
-    $Destination = Join-Path $CodexRoot 'skills\workflow-first-app-ui'
+    Join-Path (Join-Path $Root 'skills') $SkillName
 }
 
-if (Test-Path -LiteralPath $Destination) {
-    if (-not (Test-Path -LiteralPath (Join-Path $Destination '.git'))) {
-        throw "Destination exists but is not a Git repository: $Destination"
+function Get-CodexDestination {
+    $Root = $env:CODEX_HOME
+    if ([string]::IsNullOrWhiteSpace($Root)) {
+        $Root = Join-Path $env:USERPROFILE '.codex'
+    }
+    Join-Path (Join-Path $Root 'skills') $SkillName
+}
+
+function Install-Skill([string]$Path) {
+    if (Test-Path -LiteralPath $Path) {
+        if (-not (Test-Path -LiteralPath (Join-Path $Path '.git'))) {
+            throw "Destination exists but is not a Git repository: $Path"
+        }
+
+        git -C $Path pull --ff-only
+        if ($LASTEXITCODE -ne 0) {
+            throw 'Unable to update the skill repository.'
+        }
+    } else {
+        $Parent = Split-Path -Parent $Path
+        New-Item -ItemType Directory -Force -Path $Parent | Out-Null
+        git clone $Repository $Path
+        if ($LASTEXITCODE -ne 0) {
+            throw 'Unable to install the skill repository.'
+        }
     }
 
-    git -C $Destination pull --ff-only
-    if ($LASTEXITCODE -ne 0) {
-        throw 'Unable to update the skill repository.'
-    }
+    Write-Output "Workflow-First App UI is ready at $Path"
+}
+
+if (-not [string]::IsNullOrWhiteSpace($Destination)) {
+    Install-Skill $Destination
 } else {
-    $Parent = Split-Path -Parent $Destination
-    New-Item -ItemType Directory -Force -Path $Parent | Out-Null
-    git clone $Repository $Destination
-    if ($LASTEXITCODE -ne 0) {
-        throw 'Unable to install the skill repository.'
+    switch ($Target) {
+        'Claude' { Install-Skill (Get-ClaudeDestination) }
+        'Codex' { Install-Skill (Get-CodexDestination) }
+        'All' {
+            Install-Skill (Get-ClaudeDestination)
+            Install-Skill (Get-CodexDestination)
+        }
     }
 }
-
-Write-Output "Workflow-First App UI is ready at $Destination"

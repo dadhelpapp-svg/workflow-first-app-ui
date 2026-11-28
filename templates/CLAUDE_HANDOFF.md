@@ -1,6 +1,6 @@
-# Codex handoff
+# Claude handoff
 
-Copy this template into the target project or the Codex task. Replace every bracketed field and remove sections that do not apply.
+Copy this template into the target project or the Claude Code task. Replace every bracketed field and remove sections that do not apply.
 
 ## Objective
 
@@ -17,7 +17,8 @@ Copy this template into the target project or the Codex task. Replace every brac
 - Repository: [owner/repository or local path]
 - Branch or worktree: [name or path]
 - Starting commit: [SHA, if applicable]
-- Project instructions: [AGENTS.md and other relevant files]
+- Project instructions: [CLAUDE.md, AGENTS.md, and other relevant files]
+- Spec Kit artifacts: [`specs/<feature>/` files and the next Spec Kit step, or "not used"]
 
 ## Decisions already made
 

@@ -1,6 +1,6 @@
 # Minimum project setup checklist
 
-Use this checklist before handing a new software project to Codex. Mark only work that was actually completed and record failures in the handoff.
+Use this checklist before handing a new software project to Claude Code. Mark only work that was actually completed and record failures in the handoff.
 
 ## Scope
 
@@ -8,6 +8,7 @@ Use this checklist before handing a new software project to Codex. Mark only wor
 - [ ] The intended repository, branch, or worktree is identified.
 - [ ] Project-level instructions and the chosen stack are recorded.
 - [ ] Material assumptions and decisions requiring user input are explicit.
+- [ ] If the project uses Spec Kit, `.specify/` is initialized for the intended agents, the constitution is ratified, and the current feature's spec is committed.
 
 ## Runnable baseline
 
@@ -37,7 +38,7 @@ Use this checklist before handing a new software project to Codex. Mark only wor
 
 ## Handoff quality
 
-- [ ] The handoff uses [`templates/CODEX_HANDOFF.md`](templates/CODEX_HANDOFF.md).
+- [ ] The handoff uses [`templates/CLAUDE_HANDOFF.md`](templates/CLAUDE_HANDOFF.md).
 - [ ] Exact commands and results are included.
 - [ ] Relevant files and remaining bounded tasks are identified.
 - [ ] Known risks, unverified behavior, and required authorization are explicit.

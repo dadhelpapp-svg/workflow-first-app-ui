@@ -8,8 +8,12 @@ Preserve business logic during interface changes. Validate meaningful changes wi
 
 These are defaults, not mandatory technology choices. Project-level instructions and established project design systems take precedence.
 
-## Chat-to-Codex handoff default
+## Chat-to-Claude handoff default
 
-Before handing a software project to Codex, the originating chat should complete as much safe discovery, decision-making, and initial setup as its tools and authorization allow. For a new project, the minimum target is a coherent, runnable baseline with the framework, basic structure, scripts, environment example, smallest useful route or workflow, and baseline checks established.
+Before handing a software project to Claude Code, the originating chat should complete as much safe discovery, decision-making, and initial setup as its tools and authorization allow. For a new project, the minimum target is a coherent, runnable baseline with the framework, basic structure, scripts, environment example, smallest useful route or workflow, and baseline checks established.
 
-The handoff should be compact and execution-ready so Codex can continue instead of repeating completed work. Follow [CHAT_TO_CODEX_HANDOFF.md](CHAT_TO_CODEX_HANDOFF.md) for the preparation checklist, required handoff packet, safety boundaries, and Codex starting behavior.
+The handoff should be compact and execution-ready so Claude Code can continue instead of repeating completed work. Follow [CHAT_TO_CLAUDE_HANDOFF.md](CHAT_TO_CLAUDE_HANDOFF.md) for the preparation checklist, required handoff packet, safety boundaries, and Claude starting behavior.
+
+## Spec-driven development default
+
+For a substantial new feature or application where requirements are still ambiguous, prefer a written specification and plan before implementation. When a project uses GitHub Spec Kit, follow its constitution and `specs/` artifacts and use its commands (`/speckit-*` in Claude Code, `$speckit-*` in Codex). Do not add Spec Kit to a project that has not chosen it, and do not use it for small fixes. See [SPEC_DRIVEN_DEVELOPMENT.md](SPEC_DRIVEN_DEVELOPMENT.md).
